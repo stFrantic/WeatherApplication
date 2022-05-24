@@ -9,7 +9,7 @@ import java.time.ZoneId
 import java.time.format.TextStyle
 import java.util.*
 
-fun ImageView.loadUrl(url:String){
+fun ImageView.loadUrl(url: String) {
     Glide.with(context).load(url).into(this)
 }
 
@@ -44,6 +44,5 @@ fun LottieAnimationView.setAnimatedIcon(mainDescription: String, additionalDescr
 fun getDay(time: Int, timeZone: String): String {
     val zone = ZoneId.of(timeZone)
     val instant = Instant.ofEpochSecond(time.toLong()).atZone(zone)
-
-    return instant.dayOfWeek.getDisplayName(TextStyle.SHORT,Locale.US)
+    return instant.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US)
 }

@@ -13,8 +13,8 @@ interface ForecastApiService {
     suspend fun getForecast(
         @Query("q") lat_lon: String,
         @Query("days") days: String,
-        @Query("aqi") aqi : String,
-        @Query("alerts") alerts : String
+        @Query("aqi") aqi: String,
+        @Query("alerts") alerts: String
     ): Response<ForecastInfo>
 
 }

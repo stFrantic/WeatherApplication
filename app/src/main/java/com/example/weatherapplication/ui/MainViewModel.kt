@@ -11,28 +11,26 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-private val repository: WeatherRepository
+    private val repository: WeatherRepository
 ) : ViewModel() {
 
     val info = MutableLiveData<WeatherInfo>()
     val forecast = MutableLiveData<ForecastInfo>()
 
-   suspend fun getInfo(lat:String, lon :String){
-        repository.getCurrentWeather(lat,lon).apply {
-            if(isSuccessful){
+    suspend fun getInfo(lat: String, lon: String) {
+        repository.getCurrentWeather(lat, lon).apply {
+            if (isSuccessful) {
                 info.postValue(this.body())
-            }else{
-                Log.d("Weather Api error",this.message())
+            } else {
+                Log.d("Weather Api error", this.message())
             }
-
         }
-       repository.getForecast(lat,lon).apply {
-           if(isSuccessful){
-               forecast.postValue(this.body())
-           }else{
-               Log.d("Weather Api error",this.message())
-           }
-       }
+        repository.getForecast(lat, lon).apply {
+            if (isSuccessful) {
+                forecast.postValue(this.body())
+            } else {
+                Log.d("Weather Api error", this.message())
+            }
+        }
     }
-
 }

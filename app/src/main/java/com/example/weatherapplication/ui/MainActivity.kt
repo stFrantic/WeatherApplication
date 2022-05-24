@@ -120,7 +120,6 @@ class MainActivity : AppCompatActivity() {
                 binding.cityName.text = city[0].locality
             }
         }
-
     }
 
     private val permissionRequest = registerForActivityResult(
@@ -142,5 +141,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 }
