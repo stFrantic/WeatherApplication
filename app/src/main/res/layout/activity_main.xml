@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    tools:context=".ui.MainActivity">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -19,33 +19,40 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/icon"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:scaleType="fitXY"
-        android:layout_marginTop = "20dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
+        android:scaleType="center"
+        app:layout_constraintBottom_toTopOf="@id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/temperature"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/cityName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/roboto"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textIsSelectable="false"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/temperature"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="City" />
+        tools:text="Минск" />
 
     <TextView
         android:id="@+id/temperature"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/lato"
+        android:textColor="@color/white"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cityName"
@@ -55,19 +62,104 @@
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/temperature" />
+        android:fontFamily="@font/roboto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/icon" />
 
     <TextView
         android:id="@+id/feelsLike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="6dp"
-        android:textSize="24sp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/lato"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/precipitation"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/icon"
-        tools:text="Feels like : 15\u00B0C" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+        tools:text="Feels like: 15\u00B0C" />
+
+    <TextView
+        android:id="@+id/highLowTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/icon"
+        tools:text="High: 16\u00b0C Low: 16\u00b0C" />
+
+    <TextView
+        android:id="@+id/pressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/lato"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/humidity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/feelsLike"
+        app:layout_constraintTop_toTopOf="@id/feelsLike"
+        tools:text="Pressure:1013hp" />
+
+    <TextView
+        android:id="@+id/humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato"
+        android:textSize="18sp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toTopOf="@id/uvIndex"
+        app:layout_constraintStart_toStartOf="@id/pressure"
+        app:layout_constraintTop_toBottomOf="@id/pressure"
+        tools:text="Humidity: 35%" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/feelsLike"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/highLowTemp"
+        tools:itemCount="1" />
+
+    <TextView
+        android:id="@+id/precipitation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/lato"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/visibility"
+        app:layout_constraintStart_toStartOf="@id/feelsLike"
+        app:layout_constraintTop_toBottomOf="@id/feelsLike"
+        tools:text="Precipitation: 00.0 mm" />
+
+    <TextView
+        android:id="@+id/visibility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/lato"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/feelsLike"
+        app:layout_constraintTop_toBottomOf="@id/precipitation"
+        tools:text="Visibility: 10 km" />
+
+    <TextView
+        android:id="@+id/uvIndex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/lato"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/pressure"
+        app:layout_constraintTop_toBottomOf="@id/humidity"
+        tools:text="UV index: 11" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

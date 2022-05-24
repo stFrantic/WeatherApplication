@@ -14,13 +14,19 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapplication.databinding.ActivityMainBinding
+import com.example.weatherapplication.getDay
+import com.example.weatherapplication.model.ForecastCard
 import com.example.weatherapplication.setAnimatedIcon
+import com.example.weatherapplication.ui.adapter.WeatherItemAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 @HiltAndroidApp
@@ -33,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private val viewModel: MainViewModel by viewModels()
-
+    private val celsius = "\u00B0C"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,16 +67,52 @@ class MainActivity : AppCompatActivity() {
         viewModel.info.observeForever {
             binding.apply {
                 progressBar.visibility = View.GONE
-                temperature.text = it.main.temp.roundToInt().toString() + "\u00B0C"
-                text.text = it.toString()
-                icon.setAnimatedIcon(it.weather[0].main,it.weather[0].description)
+                temperature.text = it.main.temp.roundToInt().toString() + celsius
+                icon.setAnimatedIcon(it.weather[0].main, it.weather[0].description)
+                feelsLike.text =
+                    "Feels like: ${it.main.feels_like.roundToInt()}" + celsius
+                pressure.text = "Pressure: ${it.main.pressure}hPa"
+                humidity.text = "Humidity: ${it.main.humidity}%"
             }
+        }
+        viewModel.forecast.observeForever {
+            val current = it.forecast.forecastday[0].day
+            val list = arrayListOf<ForecastCard>()
+            binding.apply {
+                highLowTemp.text =
+                    "High: ${current.maxtemp_c.roundToInt()}" + celsius + " Low: ${current.mintemp_c.roundToInt()}" + celsius
+                precipitation.text = "Precipitation: ${current.totalprecip_mm} mm"
+                uvIndex.text = "UV index: ${current.uv}"
+                visibility.text = "Visibility: ${current.avgvis_km} km"
+
+            }
+            for (i in 1 until it.forecast.forecastday.size) {
+                list.add(
+                    ForecastCard(
+                        getDay(it.forecast.forecastday[i].date_epoch, it.location.tz_id),
+                        it.forecast.forecastday[i].day.maxtemp_c.roundToInt().toString() + celsius,
+                        "https://${it.forecast.forecastday[i].day.condition.icon}"
+                    )
+                )
+            }
+            setCards(list)
+        }
+    }
+
+    private fun setCards(list: ArrayList<ForecastCard>) {
+        binding.recyclerView.run {
+            if (adapter == null) {
+                adapter = WeatherItemAdapter(context)
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                isNestedScrollingEnabled = true
+            }
+            (binding.recyclerView.adapter as WeatherItemAdapter).setList(list)
         }
     }
 
     @SuppressLint("MissingPermission", "SetTextI18n")
     private fun getLocation() {
-        val geocoder = Geocoder(this)
+        val geocoder = Geocoder(this, Locale.US)
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
             lifecycleScope.launch {
                 viewModel.getInfo(location?.latitude.toString(), location?.longitude.toString())
