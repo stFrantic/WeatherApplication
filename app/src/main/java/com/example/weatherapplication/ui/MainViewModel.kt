@@ -18,19 +18,22 @@ class MainViewModel @Inject constructor(
     val forecast = MutableLiveData<ForecastInfo>()
 
     suspend fun getInfo(lat: String, lon: String) {
-        repository.getCurrentWeather(lat, lon).apply {
+        val apiF = repository.getForecast(lat, lon)
+                val apiI = repository.getCurrentWeather(lat, lon)
+        apiF.apply {
+            if (isSuccessful) {
+                forecast.postValue(this.body())
+            } else {
+                Log.d("Forecast Api error", this.message())
+            }
+        }
+        apiI.apply {
             if (isSuccessful) {
                 info.postValue(this.body())
             } else {
                 Log.d("Weather Api error", this.message())
             }
         }
-        repository.getForecast(lat, lon).apply {
-            if (isSuccessful) {
-                forecast.postValue(this.body())
-            } else {
-                Log.d("Weather Api error", this.message())
-            }
-        }
+
     }
 }

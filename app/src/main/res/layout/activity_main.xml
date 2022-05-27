@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".ui.MainActivity">
+    android:background="@drawable/background">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -42,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Минск" />
+        tools:text="Минскr" />
 
     <TextView
         android:id="@+id/temperature"
@@ -108,9 +107,9 @@
         android:id="@+id/humidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/lato"
         android:textSize="18sp"
-        android:layout_marginTop="4dp"
         app:layout_constraintBottom_toTopOf="@id/uvIndex"
         app:layout_constraintStart_toStartOf="@id/pressure"
         app:layout_constraintTop_toBottomOf="@id/pressure"
@@ -161,5 +160,65 @@
         app:layout_constraintStart_toStartOf="@id/pressure"
         app:layout_constraintTop_toBottomOf="@id/humidity"
         tools:text="UV index: 11" />
+
+    <TextView
+        android:id="@+id/co"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/lato"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/feelsLike"
+        app:layout_constraintTop_toBottomOf="@id/visibility" />
+
+    <TextView
+        android:id="@+id/no2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/lato"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/pressure"
+        app:layout_constraintTop_toBottomOf="@id/uvIndex" />
+
+    <TextView
+        android:id="@+id/o3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/lato"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/feelsLike"
+        app:layout_constraintTop_toBottomOf="@id/co" />
+
+    <TextView
+        android:id="@+id/so2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/lato"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/pressure"
+        app:layout_constraintTop_toBottomOf="@id/no2" />
+
+    <TextView
+        android:id="@+id/pm25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/lato"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/feelsLike"
+        app:layout_constraintTop_toBottomOf="@id/o3" />
+
+    <TextView
+        android:id="@+id/pm10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/lato"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/pressure"
+        app:layout_constraintTop_toBottomOf="@id/so2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

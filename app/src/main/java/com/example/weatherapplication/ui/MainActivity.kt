@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapplication.databinding.ActivityMainBinding
+import com.example.weatherapplication.formatedDouble
 import com.example.weatherapplication.getDay
 import com.example.weatherapplication.model.ForecastCard
 import com.example.weatherapplication.setAnimatedIcon
@@ -40,7 +41,9 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
     private val celsius = "\u00B0C"
+    private val dim = " μg/m\u00B3"
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -84,6 +87,12 @@ class MainActivity : AppCompatActivity() {
                 precipitation.text = "Precipitation: ${current.totalprecip_mm} mm"
                 uvIndex.text = "UV index: ${current.uv}"
                 visibility.text = "Visibility: ${current.avgvis_km} km"
+                co.text = "CO: " + formatedDouble(it.current.air_quality.co).replace(",",".") + dim
+                no2.text = "NO\u2082: " + formatedDouble(it.current.air_quality.no2).replace(",",".")+ dim
+                so2.text = "SO\u2082: " + formatedDouble(it.current.air_quality.so2).replace(",",".")+ dim
+                o3.text = "O\u2083: " + formatedDouble(it.current.air_quality.o3).replace(",",".")+ dim
+                pm25.text = "PM2.5: " + formatedDouble(it.current.air_quality.pm2_5).replace(",",".")+ dim
+                pm10.text = "PM10: " + formatedDouble(it.current.air_quality.pm10).replace(",",".")+ dim
 
             }
             for (i in 1 until it.forecast.forecastday.size) {

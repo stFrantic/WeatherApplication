@@ -1,5 +1,6 @@
 package com.example.weatherapplication
 
+import android.icu.text.DecimalFormat
 import android.widget.ImageView
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
@@ -46,3 +47,5 @@ fun getDay(time: Int, timeZone: String): String {
     val instant = Instant.ofEpochSecond(time.toLong()).atZone(zone)
     return instant.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US)
 }
+
+fun formatedDouble(number:Double) = DecimalFormat("#0.00").format(number)

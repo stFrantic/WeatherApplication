@@ -13,5 +13,5 @@ class WeatherRepository @Inject constructor(
         weatherService.getWeather(lat, lon, "metric")
 
     suspend fun getForecast(lat: String, lon: String) =
-        forecastService.getForecast("$lat,$lon", "5", "no", "no")
+        forecastService.getForecast("$lat,$lon", "5", "yes", "no")
 }
