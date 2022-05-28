@@ -4,17 +4,20 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Geocoder
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.weatherapplication.R
 import com.example.weatherapplication.databinding.ActivityMainBinding
 import com.example.weatherapplication.formatedDouble
 import com.example.weatherapplication.getDay
@@ -87,13 +90,21 @@ class MainActivity : AppCompatActivity() {
                 precipitation.text = "Precipitation: ${current.totalprecip_mm} mm"
                 uvIndex.text = "UV index: ${current.uv}"
                 visibility.text = "Visibility: ${current.avgvis_km} km"
-                co.text = "CO: " + formatedDouble(it.current.air_quality.co).replace(",",".") + dim
-                no2.text = "NO\u2082: " + formatedDouble(it.current.air_quality.no2).replace(",",".")+ dim
-                so2.text = "SO\u2082: " + formatedDouble(it.current.air_quality.so2).replace(",",".")+ dim
-                o3.text = "O\u2083: " + formatedDouble(it.current.air_quality.o3).replace(",",".")+ dim
-                pm25.text = "PM2.5: " + formatedDouble(it.current.air_quality.pm2_5).replace(",",".")+ dim
-                pm10.text = "PM10: " + formatedDouble(it.current.air_quality.pm10).replace(",",".")+ dim
-
+                co.text = "CO: " + formatedDouble(it.current.air_quality.co).replace(",", ".") + dim
+                no2.text = "NO\u2082: " + formatedDouble(it.current.air_quality.no2).replace(
+                    ",",
+                    "."
+                ) + dim
+                so2.text = "SO\u2082: " + formatedDouble(it.current.air_quality.so2).replace(
+                    ",",
+                    ".") + dim
+                o3.text =
+                    "O\u2083: " + formatedDouble(it.current.air_quality.o3).replace(",", ".") + dim
+                pm25.text =
+                    "PM2.5: " + formatedDouble(it.current.air_quality.pm2_5).replace(",", ".") + dim
+                pm10.text =
+                    "PM10: " + formatedDouble(it.current.air_quality.pm10).replace(",", ".") + dim
+                airQuality.setAirQuality(it.current.air_quality.us_epa_index)
             }
             for (i in 1 until it.forecast.forecastday.size) {
                 list.add(
@@ -105,6 +116,43 @@ class MainActivity : AppCompatActivity() {
                 )
             }
             setCards(list)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getLocation()
+    }
+
+    private fun TextView.setAirQuality(index: Int) {
+        this.apply {
+            val ending: String = when (index) {
+                1 -> {
+                    this.setTextColor(Color.parseColor("#008000"))
+                    "Good"
+                }
+                2 -> {
+                    this.setTextColor(Color.parseColor("#FFFF00"))
+                    "Moderate"
+                }
+                3 -> {
+                    this.setTextColor(Color.parseColor("#FFA500"))
+                    "Unhealthy for sensitive group"
+                }
+                4 -> {
+                    this.setTextColor(Color.parseColor("#FF0000"))
+                    "Unhealthy"
+                }
+                5 -> {
+                    this.setTextColor(Color.parseColor("#800080"))
+                    "Very Unhealthy"
+                }
+                else -> {
+                    this.setTextColor(Color.parseColor("#4B0082"))
+                    "Hazardous"
+                }
+            }
+            text = "Air Quality: $ending"
         }
     }
 

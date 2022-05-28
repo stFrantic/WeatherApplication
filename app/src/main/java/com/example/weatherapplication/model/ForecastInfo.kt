@@ -1,5 +1,7 @@
 package com.example.weatherapplication.model
 
+import com.google.gson.annotations.SerializedName
+
 data class ForecastInfo(
     val current: Current,
     val forecast: Forecast,
@@ -23,7 +25,9 @@ data class AirQuality(
     val o3 : Double,
     val so2 : Double,
     val pm2_5: Double,
-    val pm10 : Double
+    val pm10 : Double,
+    @SerializedName("us-epa-index")
+    val us_epa_index: Int
 )
 
 data class Forecast(

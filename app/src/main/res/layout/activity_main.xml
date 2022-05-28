@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@drawable/background_gradient">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -51,6 +51,7 @@
         android:fontFamily="@font/lato"
         android:textColor="@color/white"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,21 +59,14 @@
         tools:text="16\u00B0C" />
 
     <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/icon" />
-
-    <TextView
         android:id="@+id/feelsLike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/lato"
+        android:textColor="@color/white"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/precipitation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView"
@@ -83,7 +77,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato"
+        android:textColor="@color/white"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +92,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:fontFamily="@font/lato"
+        android:textColor="@color/white"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/humidity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/feelsLike"
@@ -109,7 +107,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/lato"
+        android:textColor="@color/white"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/uvIndex"
         app:layout_constraintStart_toStartOf="@id/pressure"
         app:layout_constraintTop_toBottomOf="@id/pressure"
@@ -121,6 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="14dp"
         android:orientation="horizontal"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/feelsLike"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -133,7 +134,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/lato"
+        android:textColor="@color/white"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/visibility"
         app:layout_constraintStart_toStartOf="@id/feelsLike"
         app:layout_constraintTop_toBottomOf="@id/feelsLike"
@@ -145,7 +148,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/lato"
+        android:textColor="@color/white"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/feelsLike"
         app:layout_constraintTop_toBottomOf="@id/precipitation"
         tools:text="Visibility: 10 km" />
@@ -156,30 +161,52 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/lato"
+        android:textColor="@color/white"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/pressure"
         app:layout_constraintTop_toBottomOf="@id/humidity"
         tools:text="UV index: 11" />
 
     <TextView
+        android:id="@+id/airQuality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/lato"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visibility"
+        tools:text="Air Quality: " />
+
+    <TextView
         android:id="@+id/co"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/lato"
+        android:textColor="@color/white"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/feelsLike"
-        app:layout_constraintTop_toBottomOf="@id/visibility" />
+        app:layout_constraintTop_toBottomOf="@id/airQuality"
+        tools:text="CO: 201.90 90/m" />
 
     <TextView
         android:id="@+id/no2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/lato"
+        android:textColor="@color/white"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@id/pressure"
-        app:layout_constraintTop_toBottomOf="@id/uvIndex" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/pressure"
+        app:layout_constraintTop_toBottomOf="@id/airQuality"
+        tools:text="asdad" />
 
     <TextView
         android:id="@+id/o3"
@@ -187,9 +214,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/lato"
+        android:textColor="@color/white"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@id/feelsLike"
-        app:layout_constraintTop_toBottomOf="@id/co" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/co"
+        app:layout_constraintTop_toBottomOf="@+id/co" />
 
     <TextView
         android:id="@+id/so2"
@@ -197,7 +226,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/lato"
+        android:textColor="@color/white"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/pressure"
         app:layout_constraintTop_toBottomOf="@id/no2" />
 
@@ -207,7 +238,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/lato"
+        android:textColor="@color/white"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/feelsLike"
         app:layout_constraintTop_toBottomOf="@id/o3" />
 
@@ -217,7 +250,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/lato"
+        android:textColor="@color/white"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/pressure"
         app:layout_constraintTop_toBottomOf="@id/so2" />
 
