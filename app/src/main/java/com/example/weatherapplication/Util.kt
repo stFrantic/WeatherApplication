@@ -1,5 +1,6 @@
 package com.example.weatherapplication
 
+import android.content.Context
 import android.icu.text.DecimalFormat
 import android.widget.ImageView
 import com.airbnb.lottie.LottieAnimationView
@@ -9,6 +10,8 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.format.TextStyle
 import java.util.*
+
+import android.net.ConnectivityManager
 
 fun ImageView.loadUrl(url: String) {
     Glide.with(context).load(url).into(this)
@@ -49,3 +52,9 @@ fun getDay(time: Int, timeZone: String): String {
 }
 
 fun formatedDouble(number:Double) = DecimalFormat("#0.00").format(number)
+
+fun isOnline(context: Context): Boolean {
+    val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val netInfo = cm.activeNetworkInfo
+    return netInfo != null && netInfo.isConnectedOrConnecting
+}

@@ -59,5 +59,4 @@ class NetworkManager {
             .writeTimeout(120, TimeUnit.SECONDS)
         return builder.build()
     }
-
 }
