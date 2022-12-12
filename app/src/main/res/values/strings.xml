@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">WeatherApplication</string>
+    <string name="app_name">Air Quality Tracker</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoibWFwc3Byb2plY3QzNDQ2IiwiYSI6ImNsMTB2bWJrYTIxbzIzaWtiZWdzbWFna2IifQ.ikBqb_d4-bj0zloGt2KihA</string>
 </resources>
