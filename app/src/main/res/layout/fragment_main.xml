@@ -36,7 +36,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone"
-        android:src="@drawable/ic_baseline_wifi_off_24"/>
+        android:src="@drawable/ic_baseline_wifi_off_24"
+        />
 
     <TextView
         android:id="@+id/cityName"
@@ -52,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Минскr" />
+        tools:text="Минск" />
 
     <TextView
         android:id="@+id/temperature"

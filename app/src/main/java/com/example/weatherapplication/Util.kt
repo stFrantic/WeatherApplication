@@ -2,6 +2,7 @@ package com.example.weatherapplication
 
 import android.content.Context
 import android.icu.text.DecimalFormat
+import android.net.ConnectivityManager
 import android.widget.ImageView
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
@@ -10,8 +11,6 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.format.TextStyle
 import java.util.*
-
-import android.net.ConnectivityManager
 
 fun ImageView.loadUrl(url: String) {
     Glide.with(context).load(url).into(this)
