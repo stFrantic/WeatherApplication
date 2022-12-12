@@ -25,7 +25,7 @@ class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private val celsius = "\u00B0C"
     private val dim = " μg/m\u00B3"
-    private lateinit var viewModel : MainViewModel
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,85 +39,85 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-            getInfo()
-            viewModel.info.observe(viewLifecycleOwner) {
-                binding.apply {
-                    progressBar.visibility = View.GONE
-                    temperature.text = it.main.temp.roundToInt().toString() + celsius
-                    icon.setAnimatedIcon(it.weather[0].main, it.weather[0].description)
-                    feelsLike.text =
-                        "Feels like: ${it.main.feels_like.roundToInt()}" + celsius
-                    pressure.text = "Pressure: ${it.main.pressure}hPa"
-                    humidity.text = "Humidity: ${it.main.humidity}%"
-                }
+        getInfo()
+        viewModel.info.observe(viewLifecycleOwner) {
+            binding.apply {
+                progressBar.visibility = View.GONE
+                temperature.text = it.main.temp.roundToInt().toString() + celsius
+                icon.setAnimatedIcon(it.weather[0].main, it.weather[0].description)
+                feelsLike.text =
+                    "Feels like: ${it.main.feels_like.roundToInt()}" + celsius
+                pressure.text = "Pressure: ${it.main.pressure}hPa"
+                humidity.text = "Humidity: ${it.main.humidity}%"
             }
-            viewModel.forecast.observe(viewLifecycleOwner) {
-                val current = it.forecast.forecastday[0].day
-                val list = arrayListOf<ForecastCard>()
-                binding.apply {
-                    highLowTemp.text =
-                        "High: ${current.maxtemp_c.roundToInt()}" + celsius + " Low: ${current.mintemp_c.roundToInt()}" + celsius
-                    precipitation.text = "Precipitation: ${current.totalprecip_mm} mm"
-                    uvIndex.text = "UV index: ${current.uv}"
-                    visibility.text = "Visibility: ${current.avgvis_km} km"
-                    co.text =
-                        "CO: " + formatedDouble(it.current.air_quality.co).replace(",", ".") + dim
-                    no2.text = "NO\u2082: " + formatedDouble(it.current.air_quality.no2).replace(
+        }
+        viewModel.forecast.observe(viewLifecycleOwner) {
+            val current = it.forecast.forecastday[0].day
+            val list = arrayListOf<ForecastCard>()
+            binding.apply {
+                highLowTemp.text =
+                    "High: ${current.maxtemp_c.roundToInt()}" + celsius + " Low: ${current.mintemp_c.roundToInt()}" + celsius
+                precipitation.text = "Precipitation: ${current.totalprecip_mm} mm"
+                uvIndex.text = "UV index: ${current.uv}"
+                visibility.text = "Visibility: ${current.avgvis_km} km"
+                co.text =
+                    "CO: " + formatedDouble(it.current.air_quality.co).replace(",", ".") + dim
+                no2.text = "NO\u2082: " + formatedDouble(it.current.air_quality.no2).replace(
+                    ",",
+                    "."
+                ) + dim
+                so2.text = "SO\u2082: " + formatedDouble(it.current.air_quality.so2).replace(
+                    ",",
+                    "."
+                ) + dim
+                o3.text =
+                    "O\u2083: " + formatedDouble(it.current.air_quality.o3).replace(
                         ",",
                         "."
                     ) + dim
-                    so2.text = "SO\u2082: " + formatedDouble(it.current.air_quality.so2).replace(
+                pm25.text =
+                    "PM2.5: " + formatedDouble(it.current.air_quality.pm2_5).replace(
                         ",",
                         "."
                     ) + dim
-                    o3.text =
-                        "O\u2083: " + formatedDouble(it.current.air_quality.o3).replace(
-                            ",",
-                            "."
-                        ) + dim
-                    pm25.text =
-                        "PM2.5: " + formatedDouble(it.current.air_quality.pm2_5).replace(
-                            ",",
-                            "."
-                        ) + dim
-                    pm10.text =
-                        "PM10: " + formatedDouble(it.current.air_quality.pm10).replace(
-                            ",",
-                            "."
-                        ) + dim
-                    airQuality.setAirQuality(it.current.air_quality.us_epa_index)
-                }
-                for (i in 1 until it.forecast.forecastday.size) {
-                    list.add(
-                        ForecastCard(
-                            getDay(it.forecast.forecastday[i].date_epoch, it.location.tz_id),
-                            it.forecast.forecastday[i].day.maxtemp_c.roundToInt()
-                                .toString() + celsius,
-                            "https://${it.forecast.forecastday[i].day.condition.icon}"
-                        )
+                pm10.text =
+                    "PM10: " + formatedDouble(it.current.air_quality.pm10).replace(
+                        ",",
+                        "."
+                    ) + dim
+                airQuality.setAirQuality(it.current.air_quality.us_epa_index)
+            }
+            for (i in 1 until it.forecast.forecastday.size) {
+                list.add(
+                    ForecastCard(
+                        getDay(it.forecast.forecastday[i].date_epoch, it.location.tz_id),
+                        it.forecast.forecastday[i].day.maxtemp_c.roundToInt()
+                            .toString() + celsius,
+                        "https://${it.forecast.forecastday[i].day.condition.icon}"
                     )
-                }
-                setCards(list)
+                )
             }
+            setCards(list)
+        }
     }
 
-    fun setViewModel(_vm:MainViewModel){
+    fun setViewModel(_vm: MainViewModel) {
         viewModel = _vm
     }
 
-    private fun getInfo(){
+    private fun getInfo() {
         val key = arguments?.getLong("location_key")
         val cityName = arguments?.getString("location_name")
         binding.cityName.text = cityName
-        if(key != 0L)
-        lifecycleScope.launch {
-            viewModel.getInfo(key!!)
-        }
+        if (key != 0L)
+            lifecycleScope.launch {
+                viewModel.getInfo(key!!)
+            }
         else {
             val lat = arguments?.getDouble("lat").toString()
             val lon = arguments?.getDouble("lon").toString()
             lifecycleScope.launch {
-                viewModel.getInfo(lat,lon)
+                viewModel.getInfo(lat, lon)
             }
         }
     }
@@ -165,6 +165,7 @@ class MainFragment : Fragment() {
             (binding.recyclerView.adapter as WeatherItemAdapter).setList(list)
         }
     }
+
     companion object {
         private var mainFragment: MainFragment? = null
     }

@@ -10,5 +10,5 @@ class SavedLocationRepository @Inject constructor(private val locationsDao: Save
 
     suspend fun addLocation(location: SavedLocation) = locationsDao.insertLocation(location)
 
-    suspend fun getLocationByKey(key:Long) = locationsDao.getLocationByKey(key)
+    suspend fun getLocationByKey(key: Long) = locationsDao.getLocationByKey(key)
 }

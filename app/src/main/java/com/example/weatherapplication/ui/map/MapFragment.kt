@@ -20,7 +20,7 @@ class MapFragment : Fragment() {
 
     private var mapView: MapView? = null
     private lateinit var binding: FragmentMapBinding
-    private lateinit var vm : MainViewModel
+    private lateinit var vm: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,7 +63,7 @@ class MapFragment : Fragment() {
         }
     }
 
-    fun setViewModel(_vm:MainViewModel){
+    fun setViewModel(_vm: MainViewModel) {
         vm = _vm
     }
 
